@@ -163,7 +163,7 @@ export const fetchObservations = (
           const observations: Observation[] = [];
 
           let pointer = 0;
-          while (pointer < raw.length - 1) {
+          while (pointer < raw.length - 2) {
             const fixed = raw.subarray(pointer, (pointer += 10));
 
             const notesStart = pointer;

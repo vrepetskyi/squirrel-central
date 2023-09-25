@@ -5,7 +5,12 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        noto: ["Noto Sans JP", "sans-serif"],
+        martian: ["Martian Mono", "system-ui", "sans-serif"],
+      },
+      colors: {
+        "ag-header": "#222628",
+        "ag-border": "#68686e",
+        "ag-background": "#181d1f",
       },
     },
   },

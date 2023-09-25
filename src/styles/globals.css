@@ -1,4 +1,26 @@
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Martian+Mono:wght@400;700&family=Mooli&display=swap");
 @tailwind base;
+@layer base {
+  html {
+    @apply bg-ag-background;
+  }
+
+  * {
+    @apply font-martian;
+    @apply text-white;
+    @apply border-ag-border;
+  }
+
+  div[data-type="Resizer"] {
+    @apply opacity-50;
+    @apply h-[9px];
+    @apply transition-[border-color];
+    @apply duration-300;
+
+    &:hover {
+      @apply border-ag-border;
+    }
+  }
+}
 @tailwind components;
 @tailwind utilities;

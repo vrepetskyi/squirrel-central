@@ -20,3 +20,7 @@ Performed actions:
 - Served as a binary file; decoded on frontend
 
 Observer notes may be compressed even further by limiting the character set to Base64/applying LZW algorithm
+
+## Ideas for improvement
+
+- Extract continuous attributes specifying squirrel's distance from various environments (water, park paths, tenis courts, etc.)
