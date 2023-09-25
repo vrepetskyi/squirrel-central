@@ -6,10 +6,15 @@ The dataset: https://data.cityofnewyork.us/Environment/2018-Central-Park-Squirre
 
 ## Preprocessing
 
-**Compressed** the data by more than **10 times** (from 732 to 68 KB) by:
+**Compressed** the dataset by more than **11 times**
 
-- Removing the header and redundant attributes
-- Trimming redundant data (date, coordinates)
-- Enumerating attributes with low dimensionality (day, color)
-- Transforming binary attributes into a bitfield
-- Applying GZIP compression
+Original: 732 kB<br />Compressed: 64 kB (32 kB of fixed-length data + 32 kB of observer notes)
+
+Performed actions:
+
+- Removed the CSV header and redundant attributes
+- Trimmed date and coordinates
+- Enumerated day and primary color
+- One-hot encoded highlight colors
+- Used bitfields for binary attributes
+- Served as a binary file; decoded on frontend
