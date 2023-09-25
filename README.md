@@ -18,3 +18,5 @@ Performed actions:
 - One-hot encoded highlight colors
 - Used bitfields for binary attributes
 - Served as a binary file; decoded on frontend
+
+Observer notes may be compressed even further by limiting the character set to Base64/applying LZW algorithm
