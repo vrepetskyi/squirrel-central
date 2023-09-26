@@ -5,7 +5,7 @@ import {
 } from "ag-grid-community/dist/lib/entities/colDef";
 import { AgGridReact } from "ag-grid-react/lib/agGridReact";
 import { memo } from "react";
-import { type Observation } from "~/utils";
+import { Activity, Interaction, type Observation } from "~/utils";
 
 const showOnMaps = ({
   data: observation,
@@ -43,7 +43,7 @@ const columnDefs: (ColGroupDef<Observation> | ColDef<Observation>)[] = [
   {
     headerName: "Location",
     headerTooltip:
-      'Double click an observation to show it on Google Maps. Enter Street View by right clicking "What\'s here?" on the pinpoint base',
+      'Double-click an observation to show it on Google Maps. Enter Street View by right-clicking "What\'s here?" on the pinpoint base',
     children: [
       {
         field: "location.x",
@@ -97,17 +97,55 @@ const columnDefs: (ColGroupDef<Observation> | ColDef<Observation>)[] = [
       {
         field: "activities.list",
         headerName: "Activities",
+        headerTooltip: "See 🆘 page for clarification",
+        valueFormatter: ({ value }) =>
+          (value as Activity[])
+            .map(
+              (x) =>
+                ({
+                  [Activity.Running]: "👟",
+                  [Activity.Chasing]: "🚨",
+                  [Activity.Climbing]: "🌳",
+                  [Activity.Eating]: "🌰",
+                  [Activity.Foraging]: "🔎",
+                })[x],
+            )
+            .join(""),
+        tooltipValueGetter: ({ value }) =>
+          (value as Activity[]).map((x) => Activity[x]).join(", "),
         resizable: true,
+        cellClass: "text-2xl pt-1",
       },
       {
         field: "interactions.list",
         headerName: "Interactions",
+        headerTooltip: "See 🆘 page for clarification",
+        valueFormatter: ({ value }) =>
+          (value as Interaction[])
+            .map(
+              (x) =>
+                ({
+                  [Interaction.Kuks]: "🗣️",
+                  [Interaction.Quaas]: "🐶",
+                  [Interaction.Moans]: "🦅",
+                  [Interaction.Flags]: "👻",
+                  [Interaction.Twitches]: "👀",
+                  [Interaction.Approaches]: "🫴",
+                  [Interaction.Indifferent]: "🪑",
+                  [Interaction.Escapes]: "💨",
+                })[x],
+            )
+            .join(""),
+        tooltipValueGetter: ({ value }) =>
+          (value as Interaction[]).map((x) => Interaction[x]).join(", "),
         resizable: true,
+        cellClass: "text-2xl pt-1",
       },
     ],
   },
   {
     headerName: "Notes",
+    headerTooltip: "Double-click marked observations to see notes",
   },
 ];
 
@@ -122,13 +160,13 @@ const ObservationsGrid: React.FC<{ observations: Observation[] }> = ({
       suppressDragLeaveHidesColumns
       pagination
       paginationPageSize={50}
-      onFirstDataRendered={({ columnApi }) => {
+      onFirstDataRendered={({ api, columnApi }) => {
+        api.setHeaderHeight(36);
         setTimeout(() => {
           columnApi.autoSizeAllColumns();
         }, 0);
       }}
-      tooltipShowDelay={0}
-      tooltipInteraction
+      tooltipShowDelay={300}
     />
   );
 };

@@ -24,3 +24,4 @@ Observer notes may be compressed even further by limiting the character set to B
 ## Ideas for improvement
 
 - Extract continuous attributes specifying squirrel's distance from various environments (water, park paths, tenis courts, etc.)
+- Jump to arbitrary table page

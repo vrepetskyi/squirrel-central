@@ -1,5 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Martian+Mono:wght@400;700&family=Mooli&display=swap");
+
 @tailwind base;
+
 @layer base {
   html {
     @apply bg-ag-background;
@@ -22,5 +24,11 @@
     }
   }
 }
+
 @tailwind components;
+
 @tailwind utilities;
+
+.ag-paging-panel {
+  @apply h-9;
+}
