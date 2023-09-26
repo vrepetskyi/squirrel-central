@@ -30,5 +30,5 @@
 @tailwind utilities;
 
 .ag-paging-panel {
-  @apply h-9;
+  @apply !h-9;
 }
