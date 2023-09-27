@@ -4,30 +4,27 @@
 
 @layer base {
   html {
-    @apply bg-ag-background;
+    @apply bg-ag-600;
   }
 
   * {
     @apply font-martian;
     @apply text-white;
-    @apply border-ag-border;
+    @apply border-ag-400;
   }
 
-  div[data-type="Resizer"] {
-    @apply opacity-50;
-    @apply h-[9px];
-    @apply transition-[border-color];
-    @apply duration-300;
-
-    &:hover {
-      @apply border-ag-border;
-    }
+  .ag-theme-alpine-dark {
+    --ag-grid-size: 5.33px;
   }
 }
 
 @tailwind components;
 
 @tailwind utilities;
+
+.ag-root-wrapper {
+  @apply border-0;
+}
 
 .ag-paging-panel {
   @apply !h-9;

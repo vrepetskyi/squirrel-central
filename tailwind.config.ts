@@ -8,9 +8,10 @@ export default {
         martian: ["Martian Mono", "system-ui", "sans-serif"],
       },
       colors: {
-        "ag-header": "#222628",
-        "ag-border": "#68686e",
-        "ag-background": "#181d1f",
+        "ag-400": "#68686e",
+        "ag-500": "#222628",
+        "ag-600": "#181d1f",
+        "ag-700": "#121719",
       },
     },
   },

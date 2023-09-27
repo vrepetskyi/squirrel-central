@@ -1,5 +1,4 @@
 import Head from "next/head";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import SplitPane from "react-split-pane";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
@@ -23,53 +22,59 @@ export default function Home() {
           name="description"
           content="An interactive data visualization about squirrels of New York City's Central Park"
         />
-        <link rel="icon" href="/logo-small.png" />
+        <link
+          rel="icon"
+          type="image/svg+xml"
+          sizes="any"
+          href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐿️</text></svg>"
+        />
       </Head>
-      <div className="box-border flex h-screen flex-col">
-        <header className="box-content flex items-center gap-4 border-[1px] bg-ag-header px-3 py-2">
-          <Image
-            src="/logo-small.png"
-            alt="Squirrel Central's logo"
-            width={48}
-            height={48}
-          />
+      <div className="flex h-screen flex-col">
+        <header className="bg-ag-500 flex items-center px-3 py-2">
+          <span className="relative -top-0.5 mr-3 text-3xl">🐿️</span>
           <h1 className="text-xl font-bold">Squirrel Central</h1>
-          <span className="h-4/5 w-[1px] bg-ag-border" />
+          <span className="bg-ag-400 mx-3 h-4/5 w-[1px]" />
           <div className="flex-1">Filter</div>
-          <span className="h-4/5 w-[1px] bg-ag-border" />
-          <button className="text-3xl">🆘</button>
+          <span className="bg-ag-400 mx-3 h-4/5 w-[1px]" />
+          <a
+            href="https://github.com/vrepetskyi/squirrel-central#SOS"
+            target="_blank"
+            className="relative -top-0.5 text-3xl"
+          >
+            🆘
+          </a>
         </header>
-        <main className="flex-1">
+        <main className="relative flex-1">
           {/* @ts-expect-error react-split-pane children */}
           <SplitPane
             split="horizontal"
-            className="[&>div:nth-child(3)]:!max-h-full"
+            defaultSize="45%"
+            resizerClassName="cursor-row-resize transition-colors duration-200 hover:bg-ag-500 h-9 w-20 rounded-full self-center bg-ag-400 relative top-9 z-[1] -mt-9 border-[16px] box-border border-ag-600"
+            minSize={0}
+            maxSize={-285}
           >
-            <div className="h-full border-x-[1px] bg-ag-background">Map</div>
-            <Tabs className="flex h-full flex-col border-[1px]">
-              <TabList className="flex border-b-[1px] bg-ag-background">
+            <div className="bg-ag-700 flex items-center overflow-hidden">
+              <img src="/map.png" />
+            </div>
+            <Tabs className="flex h-full w-full flex-col" forceRenderTabPanel>
+              <TabList className="flex">
                 <Tab
                   className="px-4 py-2 text-sm focus:outline-none"
-                  selectedClassName="bg-ag-header border-r-[1px]"
+                  selectedClassName="bg-ag-500"
                 >
                   Individual
                 </Tab>
                 <Tab
                   className="px-4 py-2 text-sm focus:outline-none"
-                  selectedClassName="bg-ag-header border-x-[1px]"
+                  selectedClassName="bg-ag-500"
                 >
                   Aggregated
                 </Tab>
               </TabList>
-              <TabPanel selectedClassName="react-tabs__tab-panel--selected flex-1 m-[-1px]">
+              <TabPanel selectedClassName="h-full block">
                 <ObservationsGrid observations={observations} />
               </TabPanel>
-              <TabPanel
-                className="bg-ag-background"
-                selectedClassName="react-tabs__tab-panel--selected flex-1"
-              >
-                Charts
-              </TabPanel>
+              <TabPanel selectedClassName="h-full block">Charts</TabPanel>
             </Tabs>
           </SplitPane>
         </main>

@@ -23,7 +23,12 @@ Performed actions:
 
 Observer notes may be compressed even further by limiting the character set to Base64/applying LZW algorithm
 
+## SOS
+
+TODO: usage guide
+
 ## Ideas for improvement
 
 - Extract continuous attributes specifying squirrel's distance from various environments (water, park paths, tenis courts, etc.)
 - Jump to arbitrary table page
+- Pick interesting cases, improve notes about them, attach AI-generated images of those squirrels
