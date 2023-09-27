@@ -111,6 +111,7 @@ const columnDefs: (ColGroupDef<Observation> | ColDef<Observation>)[] = [
             return 0;
           if (
             (a.isAboveGround === undefined && b.isAboveGround === false) ||
+            // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
             (a.isAboveGround === false && b.isAboveGround) ||
             (a.height === undefined && b.height !== undefined) ||
             a.height! < b.height!
