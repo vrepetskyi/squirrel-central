@@ -71,10 +71,10 @@ export default function Home() {
                   Aggregated
                 </Tab>
               </TabList>
-              <TabPanel selectedClassName="h-full block">
+              <TabPanel selectedClassName="h-full !block">
                 <ObservationsGrid observations={observations} />
               </TabPanel>
-              <TabPanel selectedClassName="h-full block">Charts</TabPanel>
+              <TabPanel selectedClassName="h-full !block">Charts</TabPanel>
             </Tabs>
           </SplitPane>
         </main>
