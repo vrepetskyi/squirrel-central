@@ -15,6 +15,7 @@
 
   .ag-theme-alpine-dark {
     --ag-grid-size: 5.33px;
+    --ag-header-height: 36px;
   }
 }
 

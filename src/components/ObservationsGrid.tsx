@@ -137,10 +137,13 @@ const columnDefs: (ColGroupDef<Observation> | ColDef<Observation>)[] = [
             .join(", "),
         sortable: true,
         comparator: (va, vb, na, nb) => {
-          const lengthA = observationToColors(na.data).length;
-          const lengthB = observationToColors(nb.data).length;
-          if (lengthA === lengthB) return 0;
-          return lengthA > lengthB ? 1 : -1;
+          const a = observationToColors(na.data);
+          const b = observationToColors(nb.data);
+          if (a.length === b.length) {
+            if (a.join() === b.join()) return 0;
+            return a.join() > b.join() ? -1 : 1;
+          }
+          return a.length > b.length ? 1 : -1;
         },
         width: 138,
       },
@@ -177,10 +180,13 @@ const columnDefs: (ColGroupDef<Observation> | ColDef<Observation>)[] = [
         tooltipValueGetter: ({ value }) =>
           (value as Activity[]).map((x) => Activity[x]).join(", "),
         sortable: true,
-        comparator: (a, b) => {
-          const lengthA = (a as []).length;
-          const lengthB = (b as []).length;
-          if (lengthA === lengthB) return 0;
+        comparator: (a: Activity[], b: Activity[]) => {
+          const lengthA = a.length;
+          const lengthB = b.length;
+          if (lengthA === lengthB) {
+            if (a.join() === b.join()) return 0;
+            return a.join() > b.join() ? -1 : 1;
+          }
           return lengthA > lengthB ? 1 : -1;
         },
         sort: "desc",
@@ -210,9 +216,13 @@ const columnDefs: (ColGroupDef<Observation> | ColDef<Observation>)[] = [
         tooltipValueGetter: ({ value }) =>
           (value as Interaction[]).map((x) => Interaction[x]).join(", "),
         sortable: true,
-        comparator: (a, b) => {
-          const lengthA = (a as []).length;
-          const lengthB = (b as []).length;
+        comparator: (a: Interaction[], b: Interaction[]) => {
+          const lengthA = a.length;
+          const lengthB = b.length;
+          if (lengthA === lengthB) {
+            if (a.join() === b.join()) return 0;
+            return a.join() > b.join() ? -1 : 1;
+          }
           if (lengthA === lengthB) return 0;
           return lengthA > lengthB ? 1 : -1;
         },
@@ -239,9 +249,6 @@ const ObservationsGrid: React.FC<{ observations: Observation[] }> = ({
     suppressDragLeaveHidesColumns
     pagination
     tooltipShowDelay={300}
-    onFirstDataRendered={({ api }) => {
-      api.setHeaderHeight(36);
-    }}
   />
 );
 

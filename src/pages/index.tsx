@@ -30,12 +30,12 @@ export default function Home() {
         />
       </Head>
       <div className="flex h-screen flex-col">
-        <header className="bg-ag-500 flex items-center px-3 py-2">
+        <header className="flex items-center bg-ag-500 px-3 py-2">
           <span className="relative -top-0.5 mr-3 text-3xl">🐿️</span>
           <h1 className="text-xl font-bold">Squirrel Central</h1>
-          <span className="bg-ag-400 mx-3 h-4/5 w-[1px]" />
+          <span className="mx-3 h-4/5 w-[1px] bg-ag-400" />
           <div className="flex-1">Filter</div>
-          <span className="bg-ag-400 mx-3 h-4/5 w-[1px]" />
+          <span className="mx-3 h-4/5 w-[1px] bg-ag-400" />
           <a
             href="https://github.com/vrepetskyi/squirrel-central#SOS"
             target="_blank"
@@ -53,7 +53,7 @@ export default function Home() {
             minSize={0}
             maxSize={-285}
           >
-            <div className="bg-ag-700 flex items-center overflow-hidden">
+            <div className="flex items-center overflow-hidden bg-ag-700">
               <img src="/map.png" />
             </div>
             <Tabs className="flex h-full w-full flex-col" forceRenderTabPanel>
@@ -70,11 +70,29 @@ export default function Home() {
                 >
                   Aggregated
                 </Tab>
+                <Tab
+                  className="px-4 py-2 text-sm focus:outline-none"
+                  selectedClassName="bg-ag-500"
+                >
+                  Pinned
+                </Tab>
               </TabList>
               <TabPanel selectedClassName="h-full !block">
                 <ObservationsGrid observations={observations} />
               </TabPanel>
               <TabPanel selectedClassName="h-full !block">Charts</TabPanel>
+              <TabPanel selectedClassName="h-full !block">
+                <div className="[&>span]:text-ag-300 flex h-full flex-col items-center justify-center gap-3">
+                  <span className="[&>em]:text-ag-200">
+                    <em>Pin</em> a <em>chart</em> from the <em>Aggregated</em>{" "}
+                    tab to get started
+                  </span>
+                  <span className="[&>em]:text-ag-300 text-sm !text-ag-400">
+                    This feature <em>preserves</em> the <em>filter</em> and is
+                    meant for side-by-side <em>comparison</em>
+                  </span>
+                </div>
+              </TabPanel>
             </Tabs>
           </SplitPane>
         </main>
