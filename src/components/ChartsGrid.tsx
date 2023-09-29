@@ -12,7 +12,7 @@ const ChartsGrid: React.FC<{ filtered: Observation[] }> = ({ filtered }) => {
   return (
     <WithCaption
       caption={
-        "Squirrel altitude distribution\n(X in metres, Y on log scale)\nNegative values are only caused\nby the kerneling algorithm"
+        "Squirrel altitude distribution\n(X in metres, Y on log scale)\nNegative values are only caused\nby the kernelling algorithm"
       }
     >
       <DensityPlot width={400} height={200} data={altitude} min={-5} max={60} />

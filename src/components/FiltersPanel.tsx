@@ -22,8 +22,8 @@ const FiltersPanel: React.FC<{
   }, [observations, isFilterMorning, isFilterJuvenile, setFiltered]);
 
   return (
-    <section className="flex flex-1 items-center gap-3">
-      <h2 className="text-sm">Filter</h2>
+    <section className="flex flex-1 items-center gap-2">
+      <h2 className="text-xs">Filter:</h2>
       <FilterButton
         text={
           isFilterMorning === undefined
@@ -41,6 +41,7 @@ const FiltersPanel: React.FC<{
               : undefined,
           );
         }}
+        blank={isFilterMorning === undefined}
       />
       <FilterButton
         text={
@@ -59,6 +60,7 @@ const FiltersPanel: React.FC<{
               : undefined,
           );
         }}
+        blank={isFilterJuvenile === undefined}
       />
     </section>
   );
