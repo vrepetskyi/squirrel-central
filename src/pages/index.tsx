@@ -2,6 +2,7 @@ import Head from "next/head";
 import { useEffect, useState } from "react";
 import SplitPane from "react-split-pane";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
+import { ChartsGrid } from "~/components/ChartsGrid";
 import { ObservationsGrid } from "~/components/ObservationsGrid";
 import { fetchObservations, type Observation } from "~/utils";
 
@@ -49,9 +50,10 @@ export default function Home() {
           <SplitPane
             split="horizontal"
             defaultSize="45%"
-            resizerClassName="cursor-row-resize transition-colors duration-200 hover:bg-ag-500 h-9 w-20 rounded-full self-center bg-ag-400 relative top-9 z-[1] -mt-9 border-[16px] box-border border-ag-600"
             minSize={0}
             maxSize={-285}
+            resizerClassName="cursor-row-resize transition-colors duration-200 hover:bg-ag-500 basis-9 w-20 rounded-full self-center bg-ag-400 relative top-9 z-[1] -mt-9 border-[16px] box-border border-ag-600"
+            pane2Style={{ overflow: "auto" }}
           >
             <div className="flex items-center overflow-hidden bg-ag-700">
               <img src="/map.png" />
@@ -80,14 +82,16 @@ export default function Home() {
               <TabPanel selectedClassName="h-full !block">
                 <ObservationsGrid observations={observations} />
               </TabPanel>
-              <TabPanel selectedClassName="h-full !block">Charts</TabPanel>
+              <TabPanel selectedClassName="overflow-auto h-full !block">
+                <ChartsGrid observations={observations} />
+              </TabPanel>
               <TabPanel selectedClassName="h-full !block">
-                <div className="[&>span]:text-ag-300 flex h-full flex-col items-center justify-center gap-3">
+                <div className="flex h-full flex-col items-center justify-center gap-3 [&>span]:text-ag-300">
                   <span className="[&>em]:text-ag-200">
                     <em>Pin</em> a <em>chart</em> from the <em>Aggregated</em>{" "}
                     tab to get started
                   </span>
-                  <span className="[&>em]:text-ag-300 text-sm !text-ag-400">
+                  <span className="text-sm !text-ag-400 [&>em]:text-ag-300">
                     This feature <em>preserves</em> the <em>filter</em> and is
                     meant for side-by-side <em>comparison</em>
                   </span>

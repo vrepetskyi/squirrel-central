@@ -97,7 +97,7 @@ const columnDefs: (ColGroupDef<Observation> | ColDef<Observation>)[] = [
         valueFormatter: ({ data }) => {
           if (data?.location.isAboveGround === undefined) return "";
           if (!data.location.isAboveGround) return "0 metres";
-          const heightFeet = data.location.height;
+          const heightFeet = data.location.z;
           if (heightFeet === undefined) return "Over 0 m";
           const height = (heightFeet * 0.3048).toFixed(1);
           return `${height} metres`;
@@ -107,14 +107,13 @@ const columnDefs: (ColGroupDef<Observation> | ColDef<Observation>)[] = [
         comparator: (va, vb, na, nb) => {
           const a = na.data!.location;
           const b = nb.data!.location;
-          if (a.isAboveGround === b.isAboveGround && a.height === b.height)
-            return 0;
+          if (a.isAboveGround === b.isAboveGround && a.z === b.z) return 0;
           if (
             (a.isAboveGround === undefined && b.isAboveGround === false) ||
             // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
             (a.isAboveGround === false && b.isAboveGround) ||
-            (a.height === undefined && b.height !== undefined) ||
-            a.height! < b.height!
+            (a.z === undefined && b.z !== undefined) ||
+            a.z! < b.z!
           )
             return -1;
           return 1;

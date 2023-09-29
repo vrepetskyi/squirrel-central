@@ -33,7 +33,7 @@ export type Observation = {
     x: number;
     y: number;
     isAboveGround?: boolean;
-    height?: number;
+    z?: number;
     note: string;
   };
   color: {
@@ -124,7 +124,7 @@ const decodeObservation = (fixed: Uint8Array, notes: string): Observation => {
       x,
       y,
       isAboveGround: isAboveGround ? true : isOnGround ? false : undefined,
-      height: isHeightKnown ? height : undefined,
+      z: isHeightKnown ? height : undefined,
       note: locationNote ?? "",
     },
     time: {
