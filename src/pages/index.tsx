@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import SplitPane from "react-split-pane";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import { ChartsGrid } from "~/components/ChartsGrid";
+import { FiltersPanel } from "~/components/FiltersPanel";
 import { ObservationsGrid } from "~/components/ObservationsGrid";
 import { fetchObservations, type Observation } from "~/utils";
 
@@ -14,6 +15,8 @@ export default function Home() {
       setObservations(x);
     });
   }, []);
+
+  const [filtered, setFiltered] = useState<Observation[]>([]);
 
   return (
     <>
@@ -35,7 +38,7 @@ export default function Home() {
           <span className="relative -top-0.5 mr-3 text-3xl">🐿️</span>
           <h1 className="text-xl font-bold">Squirrel Central</h1>
           <span className="mx-3 h-4/5 w-[1px] bg-ag-400" />
-          <div className="flex-1">Filter</div>
+          <FiltersPanel observations={observations} setFiltered={setFiltered} />
           <span className="mx-3 h-4/5 w-[1px] bg-ag-400" />
           <a
             href="https://github.com/vrepetskyi/squirrel-central#SOS"
@@ -61,29 +64,29 @@ export default function Home() {
             <Tabs className="flex h-full w-full flex-col" forceRenderTabPanel>
               <TabList className="flex">
                 <Tab
-                  className="px-4 py-2 text-sm focus:outline-none"
+                  className="cursor-pointer px-4 py-2 text-sm focus:outline-none"
                   selectedClassName="bg-ag-500"
                 >
                   Individual
                 </Tab>
                 <Tab
-                  className="px-4 py-2 text-sm focus:outline-none"
+                  className="cursor-pointer px-4 py-2 text-sm focus:outline-none"
                   selectedClassName="bg-ag-500"
                 >
                   Aggregated
                 </Tab>
                 <Tab
-                  className="px-4 py-2 text-sm focus:outline-none"
+                  className="cursor-pointer px-4 py-2 text-sm focus:outline-none"
                   selectedClassName="bg-ag-500"
                 >
                   Pinned
                 </Tab>
               </TabList>
               <TabPanel selectedClassName="h-full !block">
-                <ObservationsGrid observations={observations} />
+                <ObservationsGrid filtered={filtered} />
               </TabPanel>
               <TabPanel selectedClassName="overflow-auto h-full !block">
-                <ChartsGrid observations={observations} />
+                <ChartsGrid filtered={filtered} />
               </TabPanel>
               <TabPanel selectedClassName="h-full !block">
                 <div className="flex h-full flex-col items-center justify-center gap-3 [&>span]:text-ag-300">

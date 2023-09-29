@@ -238,12 +238,12 @@ const columnDefs: (ColGroupDef<Observation> | ColDef<Observation>)[] = [
   },
 ];
 
-const ObservationsGrid: React.FC<{ observations: Observation[] }> = ({
-  observations,
+const ObservationsGrid: React.FC<{ filtered: Observation[] }> = ({
+  filtered,
 }) => (
   <AgGridReact
     className="ag-theme-alpine-dark"
-    rowData={observations}
+    rowData={filtered}
     columnDefs={columnDefs}
     suppressDragLeaveHidesColumns
     pagination

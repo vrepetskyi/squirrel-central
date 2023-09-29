@@ -1,6 +1,6 @@
 // Based on https://www.react-graph-gallery.com/density-plot
 
-import { curveBasis, line, mean, scaleLinear } from "d3";
+import { curveBasis, line, mean, scaleLinear, type ScaleLinear } from "d3";
 import React from "react";
 
 const kernelDensityEstimator =
@@ -14,15 +14,22 @@ const DensityPlot: React.FC<{
   width: number;
   height: number;
   data: number[];
-}> = ({ width, height, data }) => {
-  const dataMin = Math.min(...data);
-  const dataMax = Math.max(...data);
-  const dataRange = dataMax - dataMin;
+  min?: number;
+  max?: number;
+}> = ({ width, height, data, min, max }) => {
+  let xScale: ScaleLinear<number, number, never>;
+  if (min !== undefined && max !== undefined) {
+    xScale = scaleLinear().domain([min, max]).range([0, width]);
+  } else {
+    const dataMin = Math.min(...data);
+    const dataMax = Math.max(...data);
+    const dataRange = dataMax - dataMin;
 
-  const xScale = scaleLinear()
-    .domain([dataMin - dataRange * 0.1, dataMax + dataRange * 0.1])
-    .range([0, width])
-    .nice();
+    xScale = scaleLinear()
+      .domain([dataMin - dataRange * 0.2, dataMax + dataRange * 0.2])
+      .range([0, width])
+      .nice();
+  }
 
   const densityGenerator = kernelDensityEstimator(
     kernelEpanechnikov(2),
@@ -37,7 +44,7 @@ const DensityPlot: React.FC<{
   const yMax = Math.max(...density.map((x) => x[1]!));
 
   const yScale = scaleLinear()
-    .range([height - 17, 0])
+    .range([height - 17.5, 0])
     .domain([0, yMax]);
 
   const pathGenerator = line()
@@ -57,7 +64,7 @@ const DensityPlot: React.FC<{
     <svg width={width} height={height}>
       <path
         d={pathGenerator(density)!}
-        className="fill-ag-450 stroke-ag-200 stroke-2"
+        className="translate-y  -[0.5px] fill-ag-450 stroke-ag-200 stroke-2"
       />
       <g style={{ transform: `translateY(${height - 16.5}px)` }}>
         <path
