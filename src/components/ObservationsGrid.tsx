@@ -235,6 +235,21 @@ const columnDefs: (ColGroupDef<Observation> | ColDef<Observation>)[] = [
     headerName: "Notes",
     flex: 1,
     minWidth: 164,
+    valueGetter: ({ data }) =>
+      [
+        data?.location.note,
+        data?.color.note,
+        data?.activities.note,
+        data?.interactions.note,
+      ].join(" "),
+    tooltipValueGetter: ({ data }) =>
+      [
+        data?.location.note,
+        data?.color.note,
+        data?.activities.note,
+        data?.interactions.note,
+      ].join(" "),
+    sortable: true,
   },
 ];
 
