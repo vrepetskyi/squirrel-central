@@ -1,9 +1,12 @@
 import { count } from "d3";
 import EChartsReact from "echarts-for-react";
 import React from "react";
-import { type Observation } from "~/utils";
+import { Activity, Interaction, type Observation } from "~/utils";
 import { DensityPlot } from "./DensityPlot";
 import { WithCaption } from "./WithCaption";
+
+const activityValues = Object.values(Activity).slice(5, 10);
+const interactionValues = Object.values(Interaction).slice(8, 16);
 
 const ChartsGrid: React.FC<{ filtered: Observation[] }> = ({ filtered }) => {
   const altitude = filtered
@@ -12,8 +15,40 @@ const ChartsGrid: React.FC<{ filtered: Observation[] }> = ({ filtered }) => {
     .map((x) => x! * 0.3048);
 
   const juveniles = count(filtered, (x) => (x.isJuvenile === true ? 1 : null));
-
   const adults = count(filtered, (x) => (x.isJuvenile === false ? 1 : null));
+
+  const age = [
+    {
+      name: "Unknown",
+      value: filtered.length - juveniles - adults,
+    },
+    {
+      name: "Juvenile",
+      value: juveniles,
+    },
+    {
+      name: "Adult",
+      value: adults,
+    },
+  ].filter((x) => x.value);
+
+  const activities = activityValues
+    .map((activity) => ({
+      name: Activity[activity as Activity],
+      value: count(filtered, (x) =>
+        x.activities.list.includes(activity as Activity) ? 1 : null,
+      ),
+    }))
+    .filter((x) => x.value);
+
+  const interactions = interactionValues
+    .map((interaction) => ({
+      name: Interaction[interaction as Interaction],
+      value: count(filtered, (x) =>
+        x.interactions.list.includes(interaction as Interaction) ? 1 : null,
+      ),
+    }))
+    .filter((x) => x.value);
 
   return (
     <div className="flex flex-wrap">
@@ -38,20 +73,37 @@ const ChartsGrid: React.FC<{ filtered: Observation[] }> = ({ filtered }) => {
             series: [
               {
                 type: "pie",
-                data: [
-                  {
-                    name: "Unknown",
-                    value: filtered.length - juveniles - adults,
-                  },
-                  {
-                    name: "Juvenile",
-                    value: juveniles,
-                  },
-                  {
-                    name: "Adult",
-                    value: adults,
-                  },
-                ],
+                data: age,
+              },
+            ],
+          }}
+          opts={{ renderer: "svg" }}
+        />
+      </WithCaption>
+      <WithCaption caption="Activity distribution">
+        <EChartsReact
+          className="w-[400px]"
+          theme="dark"
+          option={{
+            series: [
+              {
+                type: "pie",
+                data: activities,
+              },
+            ],
+          }}
+          opts={{ renderer: "svg" }}
+        />
+      </WithCaption>
+      <WithCaption caption="Interaction distribution">
+        <EChartsReact
+          className="w-[400px]"
+          theme="dark"
+          option={{
+            series: [
+              {
+                type: "pie",
+                data: interactions,
               },
             ],
           }}
