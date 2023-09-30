@@ -15,24 +15,32 @@ const ChartsGrid: React.FC<{ filtered: Observation[] }> = ({ filtered }) => {
     .filter((x) => x !== undefined)
     .map((x) => x! * 0.3048);
 
-  const colorPie = colorValues
-    .map((color) => ({
+  const colorPie = [
+    {
+      name: "Unknown",
+      value: count(filtered, (x) => (x.color.primary ? null : 1)),
+    },
+    ...colorValues.map((color) => ({
       name: Color[color as Color],
       value: count(filtered, (x) =>
         [x.color.primary, ...x.color.highlights].includes(color as Color)
           ? 1
           : null,
       ),
-    }))
-    .filter((x) => x.value);
+    })),
+  ].filter((x) => x.value);
 
   const colorBar = new Map();
+  colorBar.set("Unknown", 0);
+  colorBar.set(1, 0);
+  colorBar.set(2, 0);
+  colorBar.set(3, 0);
+  colorBar.set(4, 0);
   filtered.forEach((x) => {
-    const number = x.color.primary ? 1 : 0 + x.color.highlights.length;
-    colorBar.set(number, (colorBar.get(number) || 0) + 1);
+    const number =
+      (x.color.primary ? 1 : 0) + x.color.highlights.length || "Unknown";
+    colorBar.set(number, colorBar.get(number) + 1);
   });
-
-  console.log(colorBar);
 
   const juveniles = count(filtered, (x) => (x.isJuvenile === true ? 1 : null));
   const adults = count(filtered, (x) => (x.isJuvenile === false ? 1 : null));
@@ -108,6 +116,9 @@ const ChartsGrid: React.FC<{ filtered: Observation[] }> = ({ filtered }) => {
             xAxis: {
               type: "category",
               data: [...colorBar.keys()],
+              axisLabel: {
+                interval: 0,
+              },
             },
             yAxis: {
               type: "value",
