@@ -4,7 +4,7 @@
 
 @layer base {
   html {
-    color-scheme: dark;
+    @apply [color-scheme:dark];
     @apply bg-ag-600;
   }
 
@@ -15,8 +15,9 @@
   }
 
   .ag-theme-alpine-dark {
-    --ag-grid-size: 5.33px;
-    --ag-header-height: 36px;
+    @apply ![--ag-font-size:0.75rem];
+    @apply ![--ag-grid-size:5.33px];
+    @apply ![--ag-header-height:32px];
   }
 }
 
@@ -25,9 +26,5 @@
 @tailwind utilities;
 
 .ag-root-wrapper {
-  @apply border-0;
-}
-
-.ag-paging-panel {
-  @apply !h-9;
+  @apply !border-0;
 }

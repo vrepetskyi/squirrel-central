@@ -68,7 +68,7 @@ const columnDefs: (ColGroupDef<Observation> | ColDef<Observation>)[] = [
         data.time.isMorning ? "Morning" : "Evening"
       }`;
     },
-    width: 130,
+    width: 123,
   },
   {
     headerName: "Location",
@@ -82,7 +82,7 @@ const columnDefs: (ColGroupDef<Observation> | ColDef<Observation>)[] = [
         onCellDoubleClicked: showOnMaps,
         sortable: true,
         comparator: (a, b) => (a < b ? 1 : -1),
-        width: 130,
+        width: 123,
       },
       {
         field: "location.y",
@@ -90,7 +90,7 @@ const columnDefs: (ColGroupDef<Observation> | ColDef<Observation>)[] = [
         valueFormatter: ({ value }) => `40.${value}`,
         onCellDoubleClicked: showOnMaps,
         sortable: true,
-        width: 130,
+        width: 123,
       },
       {
         headerName: "Z",
@@ -118,7 +118,7 @@ const columnDefs: (ColGroupDef<Observation> | ColDef<Observation>)[] = [
             return -1;
           return 1;
         },
-        width: 140,
+        width: 132,
       },
     ],
   },
@@ -157,7 +157,7 @@ const columnDefs: (ColGroupDef<Observation> | ColDef<Observation>)[] = [
           if (a === undefined || (a && b === false)) return -1;
           return 1;
         },
-        width: 110,
+        width: 105,
       },
       {
         field: "activities.list",
@@ -234,7 +234,7 @@ const columnDefs: (ColGroupDef<Observation> | ColDef<Observation>)[] = [
   {
     headerName: "Notes",
     flex: 1,
-    minWidth: 164,
+    minWidth: 180,
     valueGetter: ({ data }) =>
       [
         data?.location.note,
@@ -250,6 +250,14 @@ const columnDefs: (ColGroupDef<Observation> | ColDef<Observation>)[] = [
         data?.interactions.note,
       ].join(" "),
     sortable: true,
+    comparator: (a: string, b: string) => {
+      if (a === b) return 0;
+      if (a.length > b.length) return 1;
+      if (a.length < b.length) return -1;
+      if (a > b) return -1;
+      return 1;
+    },
+    resizable: true,
   },
 ];
 
